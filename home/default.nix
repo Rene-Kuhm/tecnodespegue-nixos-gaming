@@ -1,6 +1,11 @@
 { config, pkgs, inputs, lib, ... }:
 
 {
+  imports = [
+    ./development.nix
+    ./neovim.nix
+  ];
+
   home = {
     username = "tecnodespegue";
     homeDirectory = "/home/tecnodespegue";
@@ -30,31 +35,7 @@
       kitty
       zellij
       tmux
-      neovim
       git
-      gh
-      lazygit
-      lazydocker
-      nodejs_22
-      bun
-      pnpm
-      yarn
-      deno
-      python3
-      uv
-      ruff
-      go
-      rustup
-      gcc
-      gnumake
-      cmake
-      pkg-config
-      openssl
-      docker-compose
-      kubectl
-      k9s
-      terraform
-      ansible
       jq
       yq
       fd

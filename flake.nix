@@ -30,6 +30,7 @@
         specialArgs = { inherit inputs; isIso = false; };
         modules = [
           ./configuration.nix
+          ./modules/development.nix
           ./modules/audio.nix
           ./modules/gaming.nix
           ./modules/locale.nix
@@ -56,6 +57,7 @@
           "${nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix"
           ./hosts/iso/default.nix
           ./configuration.nix
+          ./modules/development.nix
           ./modules/audio.nix
           ./modules/gaming.nix
           ./modules/locale.nix
@@ -67,6 +69,7 @@
             home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.users.tecnodespegue = import ./home/default.nix;
           }
+          sops-nix.nixosModules.sops
           disko.nixosModules.disko
         ];
       };

@@ -3,7 +3,7 @@
 {
   imports = lib.optionals (!isIso) [ ./hardware-configuration.nix ];
 
-  sops = {
+  sops = lib.mkIf (!isIso) {
     defaultSopsFile = ./secrets/secrets.yaml;
     age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
     secrets.hashedPassword = {
@@ -72,6 +72,11 @@
       tmpfsSize = "50%";
     };
   };
+
+
+  systemd.tmpfiles.rules = [
+    "L /etc/nixos - - - - /home/tecnodespegue/nixos-gaming-flake"
+  ];
 
   time.timeZone = "America/Argentina/Buenos_Aires";
 
@@ -220,7 +225,8 @@
     };
     users.tecnodespegue = {
       isNormalUser = true;
-      hashedPasswordFile = config.sops.secrets.hashedPassword.path;
+      hashedPasswordFile = lib.mkIf (!isIso) config.sops.secrets.hashedPassword.path;
+      hashedPassword = lib.mkIf isIso "$6$J9FzA8oclp8XZzLr$1qyMjOxI9EkwunNs/mK/P28OXO.SaaIogTVrEjr/18eCxMB29ox1qEnH6uuH5nE19OP1a.vA15FJFlvc2K8qW1";
       extraGroups = [
         "wheel" "networkmanager" "audio" "video" "input"
         "disk" "docker" "kvm" "plugdev"
