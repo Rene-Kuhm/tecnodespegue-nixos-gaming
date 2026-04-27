@@ -52,7 +52,6 @@
       fastfetch
       cava
       hyprpaper
-      swww
       waypaper
       hypridle
       hyprlock
@@ -234,6 +233,10 @@
     "rofi/config.rasi".source = ./rofi/config.rasi;
     "rofi/catppuccin-mocha.rasi".source = ./rofi/catppuccin-mocha.rasi;
   };
+  services.awww = {
+    enable = true;
+  };
+
   services.dunst = {
     enable = true;
     settings = {
