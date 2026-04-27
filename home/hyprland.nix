@@ -8,8 +8,9 @@ in
   enable = true;
   systemd.enable = true;
   xwayland.enable = true;
+
   settings = {
-    "$mod" = "SUPER";
+    "" = "SUPER";
 
     monitor = [ ",3440x1440@144,auto,1" ];
 
@@ -49,13 +50,6 @@ in
         tap-to-click = true;
         drag_lock = true;
       };
-    };
-
-    gestures = {
-      workspace_swipe = true;
-      workspace_swipe_fingers = 3;
-      workspace_swipe_distance = 300;
-      workspace_swipe_cancel_ratio = 0.2;
     };
 
     general = {
@@ -135,75 +129,50 @@ in
       key_press_enables_dpms = true;
     };
 
-    layerrule = [
-      "blur, waybar"
-      "blur, rofi"
-      "blur, notifications"
-      "ignorezero, waybar"
-      "ignorezero, notifications"
-    ];
-
-    windowrulev2 = [
-      "immediate, class:^(steam_app_.*)$"
-      "immediate, class:^(gamescope)$"
-      "fullscreen, class:^(gamescope)$"
-      "float, class:^(pavucontrol)$"
-      "size 900 600, class:^(pavucontrol)$"
-      "float, class:^(org.openrgb.OpenRGB)$"
-      "float, class:^(blueman-manager)$"
-      "float, class:^(nm-applet)$"
-      "float, title:^(Picture-in-Picture)$"
-      "pin, title:^(Picture-in-Picture)$"
-      "opacity 0.94 0.90, class:^(warp-terminal|ghostty|kitty)$"
-      "workspace 2, class:^(firefox|brave-browser)$"
-      "workspace 4, class:^(steam)$"
-      "workspace 4, class:^(lutris)$"
-    ];
-
     bind = [
-      "$mod, RETURN, exec, ${terminal}"
-      "$mod SHIFT, RETURN, exec, ghostty"
-      "$mod, D, exec, rofi -show drun"
-      "$mod, W, exec, firefox"
-      "$mod, E, exec, nautilus"
-      "$mod, Q, killactive"
-      "$mod SHIFT, Q, exit"
-      "$mod, F, fullscreen"
-      "$mod, V, togglefloating"
-      "$mod, P, pseudo"
-      "$mod, T, togglesplit"
-      "$mod, G, togglegroup"
-      "$mod, S, exec, hyprshot -m region"
-      "$mod SHIFT, S, exec, hyprshot -m output"
-      "$mod, C, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
-      "$mod CTRL, L, exec, hyprlock"
-      "$mod, X, exec, wlogout"
-      "$mod, left, movefocus, l"
-      "$mod, right, movefocus, r"
-      "$mod, up, movefocus, u"
-      "$mod, down, movefocus, d"
-      "$mod, H, movefocus, l"
-      "$mod, L, movefocus, r"
-      "$mod, K, movefocus, u"
-      "$mod, J, movefocus, d"
-      "$mod SHIFT, H, movewindow, l"
-      "$mod SHIFT, L, movewindow, r"
-      "$mod SHIFT, K, movewindow, u"
-      "$mod SHIFT, J, movewindow, d"
-      "$mod CTRL, H, resizeactive, -40 0"
-      "$mod CTRL, J, resizeactive, 0 40"
-      "$mod CTRL, K, resizeactive, 0 -40"
-      "$mod, mouse_down, workspace, e+1"
-      "$mod, mouse_up, workspace, e-1"
+      "\, RETURN, exec, "
+      "\ SHIFT, RETURN, exec, ghostty"
+      "\, D, exec, rofi -show drun"
+      "\, W, exec, firefox"
+      "\, E, exec, nautilus"
+      "\, Q, killactive"
+      "\ SHIFT, Q, exit"
+      "\, F, fullscreen"
+      "\, V, togglefloating"
+      "\, P, pseudo"
+      "\, T, togglesplit"
+      "\, G, togglegroup"
+      "\, S, exec, hyprshot -m region"
+      "\ SHIFT, S, exec, hyprshot -m output"
+      "\, C, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
+      "\ CTRL, L, exec, hyprlock"
+      "\, X, exec, wlogout"
+      "\, left, movefocus, l"
+      "\, right, movefocus, r"
+      "\, up, movefocus, u"
+      "\, down, movefocus, d"
+      "\, H, movefocus, l"
+      "\, L, movefocus, r"
+      "\, K, movefocus, u"
+      "\, J, movefocus, d"
+      "\ SHIFT, H, movewindow, l"
+      "\ SHIFT, L, movewindow, r"
+      "\ SHIFT, K, movewindow, u"
+      "\ SHIFT, J, movewindow, d"
+      "\ CTRL, H, resizeactive, -40 0"
+      "\ CTRL, J, resizeactive, 0 40"
+      "\ CTRL, K, resizeactive, 0 -40"
+      "\, mouse_down, workspace, e+1"
+      "\, mouse_up, workspace, e-1"
     ] ++ builtins.concatLists (builtins.genList (i:
       let ws = toString (i + 1); in [
-        "$mod, ${ws}, workspace, ${ws}"
-        "$mod SHIFT, ${ws}, movetoworkspace, ${ws}"
+        "\, \, workspace, "
+        "\ SHIFT, \, movetoworkspace, "
       ]) 9);
 
     bindm = [
-      "$mod, mouse:272, movewindow"
-      "$mod, mouse:273, resizewindow"
+      "\, mouse:272, movewindow"
+      "\, mouse:273, resizewindow"
     ];
 
     bindel = [
@@ -214,4 +183,29 @@ in
       ",XF86MonBrightnessDown, exec, brightnessctl set 5%-"
     ];
   };
+
+  extraConfig = ''
+    # Layer rules (Hyprland 0.54 syntax)
+    layerrule[namespace:waybar] = blur
+    layerrule[namespace:waybar] = ignorezero
+    layerrule[namespace:rofi] = blur
+    layerrule[namespace:notifications] = blur
+    layerrule[namespace:notifications] = ignorezero
+
+    # Window rules (Hyprland 0.54 syntax)
+    windowrule[class:^(steam_app_.*)$] = immediate
+    windowrule[class:^(gamescope)$] = immediate
+    windowrule[class:^(gamescope)$] = fullscreen
+    windowrule[class:^(pavucontrol)$] = float
+    windowrule[class:^(pavucontrol)$] = size 900 600
+    windowrule[class:^(org.openrgb.OpenRGB)$] = float
+    windowrule[class:^(blueman-manager)$] = float
+    windowrule[class:^(nm-applet)$] = float
+    windowrule[title:^(Picture-in-Picture)$] = float
+    windowrule[title:^(Picture-in-Picture)$] = pin
+    windowrule[class:^(warp-terminal|ghostty|kitty)$] = opacity 0.94 0.90
+    windowrule[class:^(firefox|brave-browser)$] = workspace 2
+    windowrule[class:^(steam)$] = workspace 4
+    windowrule[class:^(lutris)$] = workspace 4
+  '';
 }
