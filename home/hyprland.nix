@@ -12,7 +12,7 @@ in
   settings = {
     "$mod" = "SUPER";
 
-    monitor = [ ",3440x1440@144,auto,1" ];
+    monitor = [ ",preferred,auto,1" ];
 
     exec-once = [
       "waybar"

@@ -230,12 +230,12 @@
     "waybar/style.css".source = ./waybar/style.css;
     "zellij/layouts/opencode.kdl".source = ./zellij/opencode.kdl;
     "OpenRGB/OpenRGB.json".source = ./openrgb/OpenRGB.json;
-    "rofi/config.rasi".source = ./rofi/config.rasi;
-    "rofi/catppuccin-mocha.rasi".source = ./rofi/catppuccin-mocha.rasi;
+    "rofi/config.rasi" = { source = ./rofi/config.rasi; force = true; };
+    "rofi/catppuccin-mocha.rasi" = { source = ./rofi/catppuccin-mocha.rasi; force = true; };
   };
 
   xdg.dataFile = {
-    "rofi/themes/catppuccin-mocha.rasi".source = ./rofi/catppuccin-mocha.rasi;
+    "rofi/themes/catppuccin-mocha.rasi" = { source = ./rofi/catppuccin-mocha.rasi; force = true; };
   };
   services.awww = {
     enable = true;

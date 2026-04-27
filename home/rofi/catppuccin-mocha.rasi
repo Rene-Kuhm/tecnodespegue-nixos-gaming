@@ -1,36 +1,99 @@
 * {
-    background: #1e1e2e;
-    foreground: #cdd6f4;
-    border: 1px solid #45475a;
-    cursor: pointer;
-    padding: 4px 8px;
-    margin: 2px;
-    roundness: 6;
+    bg: #1e1e2e;
+    bg-alt: #181825;
+    surface: #313244;
+    surface-alt: #45475a;
+    fg: #cdd6f4;
+    muted: #a6adc8;
+    mauve: #cba6f7;
+    blue: #89b4fa;
+    red: #f38ba8;
+
+    background-color: transparent;
+    text-color: @fg;
     font: "JetBrainsMono Nerd Font 12";
 }
 
-button {
-    background: #11111b;
-    border: 1px solid #45475a;
-    border-radius: 6px;
-    highlight: #313244;
-    hover:    #313244;
+window {
+    location: center;
+    anchor: center;
+    fullscreen: false;
+    width: 42%;
+    border: 2px;
+    border-color: @mauve;
+    border-radius: 16px;
+    background-color: @bg;
+}
+
+mainbox {
+    spacing: 12px;
+    padding: 18px;
+    background-color: @bg;
+}
+
+inputbar {
+    spacing: 10px;
+    padding: 12px;
+    border-radius: 12px;
+    background-color: @bg-alt;
+    children: [ prompt, entry ];
+}
+
+prompt {
+    text-color: @mauve;
+}
+
+entry {
+    placeholder: "Buscar…";
+    placeholder-color: @muted;
+    text-color: @fg;
 }
 
 listview {
-    background: #11111b;
-    border: 1px solid #45475a;
+    lines: 8;
     columns: 1;
-    spacing: 2;
-    margin: 8;
-    padding: 8;
-    fixed-height: 0;
-    fixed-width: 0;
-    text-color: #cdd6f4;
-    separator-color: #313244;
-    scrollbar-color: #313244;
-    scrollbar-width: 10;
-    scrollbar-handle-width: 8;
-    scrollbar-handle-color: #585b70;
-    scrollbar-handle-roundness: 5;
+    fixed-height: true;
+    spacing: 6px;
+    margin: 4px 0px 0px 0px;
+    background-color: transparent;
+}
+
+element {
+    spacing: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element selected.normal {
+    background-color: @surface;
+    text-color: @fg;
+}
+
+element-icon {
+    size: 28px;
+    background-color: transparent;
+}
+
+element-text {
+    vertical-align: 0.5;
+    background-color: transparent;
+    text-color: inherit;
+}
+
+message {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: @surface;
+}
+
+textbox {
+    text-color: @fg;
+    background-color: transparent;
 }

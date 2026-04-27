@@ -1,4 +1,4 @@
-@theme "catppuccin-mocha"
+@theme "/home/tecnodespegue/.local/share/rofi/themes/catppuccin-mocha.rasi"
 
 configuration {
   modi: "drun,run,window";

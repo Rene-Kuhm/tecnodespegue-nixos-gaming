@@ -126,7 +126,7 @@
     displayManager = {
       defaultSession = "hyprland";
       autoLogin = {
-        enable = true;
+        enable = false;
         user = "tecnodespegue";
       };
       sddm = {
@@ -146,6 +146,7 @@
             DisplayServer = "wayland";
           };
           Theme = {
+            ThemeDir = "${pkgs.catppuccin-sddm}/share/sddm/themes";
             Font = "JetBrainsMono Nerd Font";
             FontSize = "12";
           };
@@ -255,6 +256,7 @@
     };
     systemPackages = with pkgs; [
       wget curl git jq yq
+      catppuccin-sddm
       pciutils usbutils lshw hwinfo dmidecode
       btop htop iotop nvtopPackages.amd
       fd ripgrep bat eza sd tealdeer zoxide
