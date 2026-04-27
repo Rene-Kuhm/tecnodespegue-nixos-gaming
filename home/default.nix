@@ -52,6 +52,8 @@
       fastfetch
       cava
       hyprpaper
+      swww
+      waypaper
       hypridle
       hyprlock
       hyprpicker

@@ -16,7 +16,8 @@ in
 
     exec-once = [
       "waybar"
-      "hyprpaper"
+      "swww-daemon"
+      "swww img /home/tecnodespegue/wallpapers/current.jpg --transition-type fade --transition-duration 1"
       "wl-paste --type text --watch cliphist store"
       "wl-paste --type image --watch cliphist store"
       "nm-applet --indicator"
