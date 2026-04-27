@@ -1,0 +1,78 @@
+* {
+  bg0: #1e1e2e;
+  bg1: #181825;
+  bg2: #313244;
+  bg3: #45475a;
+  fg0: #cdd6f4;
+  fg1: #bac2de;
+  fg2: #a6adc8;
+  acc: #89b4fa;
+  mauve: #cba6f7;
+  red: #f38ba8;
+
+  background-color: transparent;
+  text-color: @fg0;
+}
+
+window {
+  width: 580px;
+  background-color: @bg0;
+  border: 2px solid @bg3;
+  border-radius: 16px;
+}
+
+mainbox {
+  background-color: transparent;
+  children: [inputbar, listview];
+  spacing: 8px;
+  padding: 16px;
+}
+
+inputbar {
+  background-color: @bg1;
+  border-radius: 10px;
+  padding: 10px 14px;
+  spacing: 8px;
+  children: [prompt, entry];
+}
+
+prompt {
+  text-color: @acc;
+  font: "JetBrainsMono Nerd Font Bold 13";
+}
+
+entry {
+  background-color: transparent;
+  text-color: @fg0;
+  placeholder-color: @fg2;
+  placeholder: "Buscar...";
+}
+
+listview {
+  background-color: transparent;
+  lines: 8;
+  columns: 1;
+  spacing: 4px;
+}
+
+element {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: transparent;
+  text-color: @fg1;
+  spacing: 12px;
+}
+
+element selected {
+  background-color: @bg2;
+  text-color: @fg0;
+}
+
+element-icon { size: 24px; }
+element-text { vertical-align: 0.5; }
+
+scrollbar {
+  handle-color: @bg3;
+  handle-width: 4px;
+  background-color: transparent;
+}

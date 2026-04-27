@@ -1,0 +1,13 @@
+@theme "catppuccin-mocha"
+
+configuration {
+  modi: "drun,run,window";
+  display-drun: "  Apps";
+  display-run: "  Run";
+  display-window: "  Windows";
+  drun-display-format: "{name}";
+  show-icons: true;
+  font: "JetBrainsMono Nerd Font 12";
+  terminal: "ghostty";
+  icon-theme: "Papirus-Dark";
+}
