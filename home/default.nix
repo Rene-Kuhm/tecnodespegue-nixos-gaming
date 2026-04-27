@@ -233,6 +233,10 @@
     "rofi/config.rasi".source = ./rofi/config.rasi;
     "rofi/catppuccin-mocha.rasi".source = ./rofi/catppuccin-mocha.rasi;
   };
+
+  xdg.dataFile = {
+    "rofi/themes/catppuccin-mocha.rasi".source = ./rofi/catppuccin-mocha.rasi;
+  };
   services.awww = {
     enable = true;
   };
