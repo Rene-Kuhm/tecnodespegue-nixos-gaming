@@ -240,41 +240,19 @@
         height = 120;
         offset = "16x56";
         origin = "top-right";
-        transparency = 8;
-        frame_width = 2;
-        frame_color = "#313244";
         corner_radius = 12;
-        font = "JetBrainsMono Nerd Font 11";
         icon_theme = "Papirus-Dark";
         enable_recursive_icon_lookup = true;
-        format = "<b>%s</b>\n%b";
-        markup = "full";
         padding = 12;
         horizontal_padding = 16;
         gap_size = 6;
-        separator_color = "frame";
         progress_bar = true;
         progress_bar_height = 6;
         progress_bar_corner_radius = 3;
       };
-      urgency_low = {
-        background = "#1e1e2e";
-        foreground = "#cdd6f4";
-        frame_color = "#313244";
-        timeout = 4;
-      };
-      urgency_normal = {
-        background = "#1e1e2e";
-        foreground = "#cdd6f4";
-        frame_color = "#89b4fa";
-        timeout = 6;
-      };
-      urgency_critical = {
-        background = "#1e1e2e";
-        foreground = "#f38ba8";
-        frame_color = "#f38ba8";
-        timeout = 0;
-      };
+      urgency_low.timeout = 4;
+      urgency_normal.timeout = 6;
+      urgency_critical.timeout = 0;
     };
   };
 }
