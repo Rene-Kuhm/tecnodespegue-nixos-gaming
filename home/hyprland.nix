@@ -10,7 +10,7 @@ in
   xwayland.enable = true;
 
   settings = {
-    "" = "SUPER";
+    "$mod" = "SUPER";
 
     monitor = [ ",3440x1440@144,auto,1" ];
 
@@ -130,49 +130,49 @@ in
     };
 
     bind = [
-      "\, RETURN, exec, "
-      "\ SHIFT, RETURN, exec, ghostty"
-      "\, D, exec, rofi -show drun"
-      "\, W, exec, firefox"
-      "\, E, exec, nautilus"
-      "\, Q, killactive"
-      "\ SHIFT, Q, exit"
-      "\, F, fullscreen"
-      "\, V, togglefloating"
-      "\, P, pseudo"
-      "\, T, togglesplit"
-      "\, G, togglegroup"
-      "\, S, exec, hyprshot -m region"
-      "\ SHIFT, S, exec, hyprshot -m output"
-      "\, C, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
-      "\ CTRL, L, exec, hyprlock"
-      "\, X, exec, wlogout"
-      "\, left, movefocus, l"
-      "\, right, movefocus, r"
-      "\, up, movefocus, u"
-      "\, down, movefocus, d"
-      "\, H, movefocus, l"
-      "\, L, movefocus, r"
-      "\, K, movefocus, u"
-      "\, J, movefocus, d"
-      "\ SHIFT, H, movewindow, l"
-      "\ SHIFT, L, movewindow, r"
-      "\ SHIFT, K, movewindow, u"
-      "\ SHIFT, J, movewindow, d"
-      "\ CTRL, H, resizeactive, -40 0"
-      "\ CTRL, J, resizeactive, 0 40"
-      "\ CTRL, K, resizeactive, 0 -40"
-      "\, mouse_down, workspace, e+1"
-      "\, mouse_up, workspace, e-1"
+      "$mod, RETURN, exec, ${terminal}"
+      "$mod SHIFT, RETURN, exec, ghostty"
+      "$mod, D, exec, rofi -show drun"
+      "$mod, W, exec, firefox"
+      "$mod, E, exec, nautilus"
+      "$mod, Q, killactive"
+      "$mod SHIFT, Q, exit"
+      "$mod, F, fullscreen"
+      "$mod, V, togglefloating"
+      "$mod, P, pseudo"
+      "$mod, T, togglesplit"
+      "$mod, G, togglegroup"
+      "$mod, S, exec, hyprshot -m region"
+      "$mod SHIFT, S, exec, hyprshot -m output"
+      "$mod, C, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
+      "$mod CTRL, L, exec, hyprlock"
+      "$mod, X, exec, wlogout"
+      "$mod, left, movefocus, l"
+      "$mod, right, movefocus, r"
+      "$mod, up, movefocus, u"
+      "$mod, down, movefocus, d"
+      "$mod, H, movefocus, l"
+      "$mod, L, movefocus, r"
+      "$mod, K, movefocus, u"
+      "$mod, J, movefocus, d"
+      "$mod SHIFT, H, movewindow, l"
+      "$mod SHIFT, L, movewindow, r"
+      "$mod SHIFT, K, movewindow, u"
+      "$mod SHIFT, J, movewindow, d"
+      "$mod CTRL, H, resizeactive, -40 0"
+      "$mod CTRL, J, resizeactive, 0 40"
+      "$mod CTRL, K, resizeactive, 0 -40"
+      "$mod, mouse_down, workspace, e+1"
+      "$mod, mouse_up, workspace, e-1"
     ] ++ builtins.concatLists (builtins.genList (i:
       let ws = toString (i + 1); in [
-        "\, \, workspace, "
-        "\ SHIFT, \, movetoworkspace, "
+        "$mod, ${ws}, workspace, ${ws}"
+        "$mod SHIFT, ${ws}, movetoworkspace, ${ws}"
       ]) 9);
 
     bindm = [
-      "\, mouse:272, movewindow"
-      "\, mouse:273, resizewindow"
+      "$mod, mouse:272, movewindow"
+      "$mod, mouse:273, resizewindow"
     ];
 
     bindel = [
