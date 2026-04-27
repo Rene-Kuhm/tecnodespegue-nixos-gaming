@@ -132,11 +132,22 @@
       sddm = {
         enable = true;
         wayland.enable = true;
-        theme = "breeze";
+        theme = "catppuccin-mocha-mauve";
+        extraPackages = with pkgs; [
+          catppuccin-sddm
+          kdePackages.qtsvg
+          kdePackages.qtmultimedia
+          kdePackages.qtwayland
+          kdePackages.qtvirtualkeyboard
+        ];
         settings = {
           General = {
             Numlock = "on";
             DisplayServer = "wayland";
+          };
+          Theme = {
+            Font = "JetBrainsMono Nerd Font";
+            FontSize = "12";
           };
         };
       };
