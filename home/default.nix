@@ -97,6 +97,11 @@
     '';
   };
 
+
+  stylix.targets.neovim.enable = false;
+  stylix.targets.hyprland.enable = false;
+  stylix.targets.spicetify.enable = false;
+
   programs.home-manager.enable = true;
 
   programs.git = {
@@ -104,7 +109,7 @@
     settings = {
       user = {
         name = "tecnodespegue";
-        email = "tecnodespegue@local";
+        email = "renekuhm2@gmail.com";
       };
       init.defaultBranch = "main";
       pull.rebase = false;

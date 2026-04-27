@@ -31,6 +31,7 @@
         modules = [
           ./configuration.nix
           ./modules/development.nix
+          ./modules/stylix.nix
           ./modules/audio.nix
           ./modules/gaming.nix
           ./modules/locale.nix
@@ -43,6 +44,7 @@
             home-manager.users.tecnodespegue = import ./home/default.nix;
           }
           sops-nix.nixosModules.sops
+          stylix.nixosModules.stylix
           disko.nixosModules.disko
           nixos-hardware.nixosModules.common-cpu-amd
           nixos-hardware.nixosModules.common-gpu-amd
@@ -58,6 +60,7 @@
           ./hosts/iso/default.nix
           ./configuration.nix
           ./modules/development.nix
+          ./modules/stylix.nix
           ./modules/audio.nix
           ./modules/gaming.nix
           ./modules/locale.nix
@@ -70,6 +73,7 @@
             home-manager.users.tecnodespegue = import ./home/default.nix;
           }
           sops-nix.nixosModules.sops
+          stylix.nixosModules.stylix
           disko.nixosModules.disko
         ];
       };

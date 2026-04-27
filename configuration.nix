@@ -360,7 +360,7 @@
       enable = true;
       dates = "04:00";
       allowReboot = true;
-      flake = "github:tecnodespegue/nixos-gaming";
+      flake = "github:Rene-Kuhm/tecnodespegue-nixos-gaming";
     };
     stateVersion = "25.05";
   };
