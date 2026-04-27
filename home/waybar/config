@@ -1,0 +1,43 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 34,
+  "spacing": 8,
+  "modules-left": ["hyprland/workspaces", "hyprland/window"],
+  "modules-center": ["clock"],
+  "modules-right": ["cpu", "memory", "temperature", "pulseaudio", "network", "tray"],
+  "hyprland/workspaces": {
+    "disable-scroll": false,
+    "all-outputs": true,
+    "format": "{icon}",
+    "format-icons": {
+      "1": "dev",
+      "2": "web",
+      "3": "chat",
+      "4": "game",
+      "5": "media",
+      "urgent": "alerta",
+      "focused": "activo",
+      "default": "desk"
+    }
+  },
+  "clock": {
+    "format": "{:%A %d/%m %H:%M}",
+    "locale": "es_AR.UTF-8",
+    "tooltip-format": "{:%A, %d de %B de %Y}"
+  },
+  "cpu": { "format": "CPU {usage}%", "interval": 2 },
+  "memory": { "format": "RAM {}%", "interval": 2 },
+  "temperature": { "critical-threshold": 85, "format": "TEMP {temperatureC}C" },
+  "pulseaudio": {
+    "format": "VOL {volume}%",
+    "format-muted": "MUTE",
+    "on-click": "pavucontrol"
+  },
+  "network": {
+    "format-wifi": "NET {essid}",
+    "format-ethernet": "LAN {ipaddr}",
+    "format-disconnected": "SIN RED"
+  },
+  "tray": { "spacing": 8 }
+}

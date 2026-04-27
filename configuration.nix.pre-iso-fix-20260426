@@ -1,0 +1,395 @@
+{ config, pkgs, inputs, lib, ... }:
+
+{
+  imports = [ ./hardware-configuration.nix ];
+
+  nix = {
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes" ];
+      substituters = [ "https://cache.nixos.org" ];
+    };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+    package = pkgs.nixVersions.stable;
+  };
+
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      openldap = prev.openldap.overrideAttrs (_old: {
+        doCheck = false;
+      });
+    })
+  ];
+
+  boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+    kernelModules = [ "ntsync" "amdgpu" "kvm-amd" "v4l2loopback" ];
+    extraModulePackages = with config.boot.kernelPackages; [
+      v4l2loopback
+      zenpower
+    ];
+    kernelParams = [
+      "amdgpu.ppfeaturemask=0xffffffff"
+      "amdgpu.gpu_recovery=1"
+      "amdgpu.noretry=0"
+      "mitigations=off"
+      "split_lock_detect=off"
+      "ntsync"
+      "preempt=full"
+      "threadirqs"
+      "iommu=pt"
+      "amd_iommu=on"
+    ];
+    kernel.sysctl = {
+      "vm.max_map_count" = 2147483642;
+      "vm.swappiness" = 10;
+      "fs.inotify.max_user_watches" = 524288;
+      "fs.inotify.max_user_instances" = 512;
+    };
+    supportedFilesystems = [ "ntfs" "btrfs" "ext4" "vfat" "nfs" ];
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    tmp = {
+      useTmpfs = true;
+      tmpfsSize = "50%";
+    };
+  };
+
+  time.timeZone = "America/Argentina/Buenos_Aires";
+
+  i18n = {
+    defaultLocale = "es_AR.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "es_AR.UTF-8";
+      LC_IDENTIFICATION = "es_AR.UTF-8";
+      LC_MEASUREMENT = "es_AR.UTF-8";
+      LC_MONETARY = "es_AR.UTF-8";
+      LC_NAME = "es_AR.UTF-8";
+      LC_NUMERIC = "es_AR.UTF-8";
+      LC_PAPER = "es_AR.UTF-8";
+      LC_TELEPHONE = "es_AR.UTF-8";
+      LC_TIME = "es_AR.UTF-8";
+    };
+  };
+
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "es";
+  };
+
+  networking = {
+    hostName = "nixos-gaming";
+    networkmanager.enable = true;
+    networkmanager.dns = "dnsmasq";
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [ 22 80 443 57621 57622 ];
+      allowedUDPPorts = [ 5353 57621 57622 ];
+      allowedTCPPortRanges = [{ from = 27000; to = 27100; }];
+      allowedUDPPortRanges = [{ from = 27000; to = 27100; }];
+    };
+    extraHosts = ''
+      127.0.0.1 local-server
+      127.0.0.1 servidor-local
+    '';
+  };
+
+  services = {
+    xserver = {
+      enable = true;
+      videoDrivers = [ "amdgpu" ];
+    };
+
+    displayManager = {
+      defaultSession = "hyprland";
+      autoLogin = {
+        enable = true;
+        user = "tecnodespegue";
+      };
+      sddm = {
+        enable = true;
+        wayland.enable = true;
+        theme = "breeze";
+        settings = {
+          General = {
+            Numlock = "on";
+            DisplayServer = "wayland";
+          };
+        };
+      };
+    };
+
+    dbus.enable = true;
+    udev = {
+      enable = true;
+      packages = with pkgs; [ openrgb ];
+      extraRules = ''
+        KERNEL=="ntsync", MODE="0666"
+        SUBSYSTEM=="usb", ATTR{idVendor}=="1b1c", MODE="0666"
+        SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1b1c", MODE="0666"
+        SUBSYSTEM=="usb", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
+      '';
+    };
+
+    fstrim.enable = true;
+    openssh = {
+      enable = true;
+      settings.PasswordAuthentication = true;
+    };
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+      publish = {
+        enable = true;
+        addresses = true;
+        workstation = true;
+      };
+    };
+    samba = {
+      enable = true;
+      openFirewall = true;
+      settings = {
+        global = {
+          workgroup = "WORKGROUP";
+          "server string" = "nixos-gaming";
+          "netbios name" = "nixos-gaming";
+          security = "user";
+          "map to guest" = "Bad User";
+        };
+      };
+    };
+    flatpak.enable = true;
+    gvfs.enable = true;
+    tumbler.enable = true;
+    pcscd.enable = true;
+    ratbagd.enable = true;
+    power-profiles-daemon.enable = true;
+
+  };
+
+  security = {
+    rtkit.enable = true;
+    polkit.enable = true;
+    pam.services.swaylock = {};
+    sudo = {
+      enable = true;
+      extraRules = [
+        {
+          users = [ "tecnodespegue" ];
+          commands = [
+            {
+              command = "ALL";
+              options = [ "NOPASSWD" ];
+            }
+          ];
+        }
+      ];
+    };
+  };
+
+  virtualisation = {
+    docker.enable = true;
+  };
+
+  users = {
+    mutableUsers = false;
+    groups = {
+      openrgb = {};
+      plugdev = {};
+      games = {};
+      ratbagd = {};
+    };
+    users.tecnodespegue = {
+      isNormalUser = true;
+      hashedPassword = "$6$J9FzA8oclp8XZzLr$1qyMjOxI9EkwunNs/mK/P28OXO.SaaIogTVrEjr/18eCxMB29ox1qEnH6uuH5nE19OP1a.vA15FJFlvc2K8qW1";
+      extraGroups = [
+        "wheel" "networkmanager" "audio" "video" "input"
+        "disk" "docker" "kvm" "plugdev"
+        "openrgb" "ratbagd" "dialout" "cdrom" "floppy"
+        "games" "render"
+      ];
+      shell = pkgs.zsh;
+      uid = 1000;
+    };
+  };
+
+  environment = {
+    etc = {
+      "xdg/user-dirs.locale".text = "es_AR";
+    };
+    systemPackages = with pkgs; [
+      wget curl git jq yq
+      pciutils usbutils lshw hwinfo dmidecode
+      btop htop iotop nvtopPackages.amd
+      fd ripgrep bat eza sd tealdeer zoxide
+      fzf atuin carapace
+      unzip p7zip unrar
+      ntfs3g nfs-utils cifs-utils avahi samba wsdd
+      lm_sensors smartmontools
+      gparted gnome-disk-utility
+      home-manager
+      nix-output-monitor
+      nvd
+      nh
+    ];
+    variables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+      MOZ_ENABLE_WAYLAND = "1";
+      XDG_SESSION_TYPE = "wayland";
+      XDG_CURRENT_DESKTOP = "Hyprland";
+      XDG_SESSION_DESKTOP = "Hyprland";
+      SDL_VIDEODRIVER = "wayland";
+      CLUTTER_BACKEND = "wayland";
+      ELECTRON_OZONE_PLATFORM_HINT = "auto";
+      _JAVA_AWT_WM_NONREPARENTING = "1";
+      QT_QPA_PLATFORM = "wayland;xcb";
+      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+      QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+      GDK_BACKEND = "wayland";
+      WLR_RENDERER = "vulkan";
+      __GL_GSYNC_ALLOWED = "1";
+      __GL_VRR_ALLOWED = "1";
+      VK_ICD_FILENAMES = "/usr/share/vulkan/icd.d/radeon_icd.x86_64.json:/usr/share/vulkan/icd.d/radeon_icd.i686.json";
+      MANGOHUD = "1";
+    };
+    pathsToLink = [ "/share/xdg" "/share/zsh" "/share/fish" ];
+  };
+
+  programs = {
+    zsh = {
+      enable = true;
+      autosuggestions.enable = true;
+      syntaxHighlighting.enable = true;
+      histSize = 20000;
+      setOptions = [ "HIST_IGNORE_ALL_DUPS" "HIST_REDUCE_BLANKS" "SHARE_HISTORY" "AUTO_CD" "AUTO_PUSHD" "PUSHD_IGNORE_DUPS" "EXTENDED_GLOB" "COMPLETE_IN_WORD" ];
+    };
+    dconf.enable = true;
+    nm-applet.enable = true;
+    gnupg.agent = {
+      enable = true;
+      pinentryPackage = pkgs.pinentry-gtk2;
+    };
+    wireshark.enable = true;
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
+      gamescopeSession.enable = true;
+      protontricks.enable = true;
+    };
+    hyprland = {
+      enable = true;
+      xwayland.enable = true;
+    };
+    gamemode = {
+      enable = true;
+      settings = {
+        general = {
+          renice = 10;
+          ioprio = 1;
+        };
+        gpu = {
+          amdgpu_performance_level = "high";
+        };
+        cpu = {
+          park_cores = false;
+          pin_cores = true;
+        };
+        custom = {
+          start = "${pkgs.mangohud}/bin/mangohud --dlopen &";
+          end = "killall mangohud";
+        };
+      };
+    };
+    gamescope = {
+      enable = true;
+      capSysNice = true;
+    };
+  };
+
+  xdg = {
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-hyprland
+        xdg-desktop-portal-gtk
+      ];
+      config = {
+        common = { default = [ "hyprland" "gtk" ]; };
+        hyprland = { default = [ "hyprland" "gtk" ]; };
+      };
+    };
+    mime = {
+      defaultApplications = {
+        "text/html" = "firefox.desktop";
+        "text/xml" = "firefox.desktop";
+        "x-scheme-handler/http" = "firefox.desktop";
+        "x-scheme-handler/https" = "firefox.desktop";
+      };
+    };
+  };
+
+  system = {
+    autoUpgrade = {
+      enable = true;
+      dates = "04:00";
+      allowReboot = true;
+      flake = "github:tecnodespegue/nixos-gaming";
+    };
+    stateVersion = "25.05";
+  };
+
+  systemd = {
+    services = {
+      ntsync = {
+        description = "NTSYNC kernel module";
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.kmod}/bin/modprobe ntsync";
+          RemainAfterExit = true;
+        };
+      };
+      NetworkManager-wait-online.enable = false;
+    };
+    settings.Manager = {
+      DefaultTimeoutStartSec = "30s";
+      DefaultTimeoutStopSec = "10s";
+    };
+  };
+
+  hardware = {
+    enableAllFirmware = true;
+    enableRedistributableFirmware = true;
+    acpilight.enable = true;
+    cpu.amd = {
+      updateMicrocode = true;
+    };
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+      extraPackages = with pkgs; [
+        mesa
+        rocmPackages.clr
+        rocmPackages.clr.icd
+        libva-vdpau-driver
+        libvdpau-va-gl
+      ];
+      extraPackages32 = with pkgs.pkgsi686Linux; [
+        mesa
+      ];
+    };
+  };
+}

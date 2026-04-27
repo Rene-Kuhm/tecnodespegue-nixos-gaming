@@ -1,0 +1,43 @@
+{
+  "$schema": "https://opencode.ai/theme.json",
+  "defs": {
+    "bgDeep": "#0a0a0f",
+    "bgPanel": "#12121a",
+    "bgElement": "#1a1a25",
+    "textPrimary": "#e8e8ed",
+    "textSecondary": "#9898a8",
+    "textMuted": "#5a5a6a",
+    "bluePrimary": "#4da6ff",
+    "purpleAccent": "#b388ff",
+    "pinkHighlight": "#ff6b9d",
+    "cyanBright": "#4ffefd",
+    "orangeWarm": "#ff9f43",
+    "greenSuccess": "#2ed573",
+    "redError": "#ff4757",
+    "yellowWarn": "#ffa502",
+    "borderDefault": "#2a2a3a"
+  },
+  "theme": {
+    "background": { "dark": "bgDeep", "light": "#f5f5f8" },
+    "backgroundPanel": { "dark": "bgPanel", "light": "#ffffff" },
+    "backgroundElement": { "dark": "bgElement", "light": "#ebebef" },
+    "text": { "dark": "textPrimary", "light": "#1a1a2e" },
+    "textMuted": { "dark": "textMuted", "light": "#6a6a7a" },
+    "primary": { "dark": "bluePrimary", "light": "#0066cc" },
+    "secondary": { "dark": "purpleAccent", "light": "#7c3aed" },
+    "accent": { "dark": "cyanBright", "light": "#0891b2" },
+    "error": { "dark": "redError", "light": "#dc2626" },
+    "warning": { "dark": "yellowWarn", "light": "#d97706" },
+    "success": { "dark": "greenSuccess", "light": "#059669" },
+    "border": { "dark": "borderDefault", "light": "#d1d1d8" },
+    "markdownHeading": { "dark": "bluePrimary", "light": "#0066cc" },
+    "markdownLink": { "dark": "cyanBright", "light": "#0891b2" },
+    "markdownCode": { "dark": "greenSuccess", "light": "#059669" },
+    "syntaxKeyword": { "dark": "pinkHighlight", "light": "#ec4899" },
+    "syntaxFunction": { "dark": "cyanBright", "light": "#06b6d4" },
+    "syntaxVariable": { "dark": "orangeWarm", "light": "#f97316" },
+    "syntaxString": { "dark": "greenSuccess", "light": "#10b981" },
+    "syntaxNumber": { "dark": "purpleAccent", "light": "#8b5cf6" },
+    "syntaxOperator": { "dark": "yellowWarn", "light": "#f59e0b" }
+  }
+}

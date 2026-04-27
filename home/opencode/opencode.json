@@ -1,0 +1,113 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "dangerous-gentleman": {
+      "description": "Gentleman with full permissions - no restrictions, no questions asked",
+      "mode": "all",
+      "permission": {
+        "bash": "allow",
+        "codesearch": "allow",
+        "edit": "allow",
+        "external_directory": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "lsp": "allow",
+        "question": "allow",
+        "read": "allow",
+        "skill": "allow",
+        "task": "allow",
+        "todoread": "allow",
+        "todowrite": "allow",
+        "webfetch": "allow"
+      },
+      "prompt": "{file:./AGENTS.md}",
+      "tools": {
+        "bash": true,
+        "edit": true,
+        "read": true,
+        "write": true
+      }
+    },
+    "gentleman": {
+      "description": "Senior Architect mentor - helpful first, challenging when it matters",
+      "mode": "primary",
+      "prompt": "{file:./AGENTS.md}",
+      "tools": {
+        "bash": true,
+        "edit": true,
+        "read": true,
+        "write": true
+      }
+    }
+  },
+  "autoupdate": true,
+  "mcp": {
+    "context7": {
+      "enabled": true,
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "engram": {
+      "command": ["engram", "mcp", "--tools=agent"],
+      "enabled": true,
+      "type": "local"
+    }
+  },
+  "permission": {
+    "bash": {
+      "*": "allow",
+      "git commit *": "ask",
+      "git push": "ask",
+      "git push *": "ask",
+      "git push --force *": "ask",
+      "git rebase *": "ask",
+      "git reset --hard *": "ask"
+    },
+    "read": {
+      "*": "allow",
+      "**/.env": "deny",
+      "**/.env.*": "deny",
+      "**/credentials.json": "deny",
+      "**/secrets/**": "deny",
+      "*.env": "deny",
+      "*.env.*": "deny"
+    }
+  },
+  "provider": {
+    "openrouter-free": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "OpenRouter Free",
+      "options": {
+        "baseURL": "https://openrouter.ai/api/v1",
+        "apiKey": "{env:OPENROUTER_API_KEY}"
+      },
+      "models": {
+        "openai/gpt-oss-120b:free": {
+          "name": "OpenAI: gpt-oss-120b (free)",
+          "limit": { "context": 131072, "output": 8192 }
+        },
+        "openai/gpt-oss-20b:free": {
+          "name": "OpenAI: gpt-oss-20b (free)",
+          "limit": { "context": 131072, "output": 8192 }
+        }
+      }
+    },
+    "huggingface-router": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Hugging Face Router",
+      "options": {
+        "baseURL": "https://router.huggingface.co/v1",
+        "apiKey": "{env:HF_TOKEN}"
+      },
+      "models": {
+        "zai-org/GLM-5.1:together": {
+          "name": "Z.ai: GLM-5.1 (Together via Hugging Face)",
+          "limit": { "context": 200000, "output": 128000 }
+        }
+      }
+    }
+  },
+  "model": "openrouter-free/openai/gpt-oss-120b:free",
+  "small_model": "openrouter-free/openai/gpt-oss-20b:free"
+}

@@ -1,0 +1,21 @@
+{
+  "Settings": {
+    "StartMinimized": true,
+    "StartServer": true,
+    "ServerPort": 6742,
+    "LoadProfile": "tecnodespegue-gaming"
+  },
+  "Detectors": {
+    "detectors": {
+      "Corsair Hydro Series": true,
+      "Corsair Commander Core": true,
+      "Corsair Lighting Node Core": true,
+      "Corsair Dominator Platinum": true,
+      "ASUS Aura Motherboard": true,
+      "MSI Mystic Light MS_7D75": true,
+      "Gigabyte RGB Fusion 2 USB": true,
+      "Razer Chroma Addressable RGB Controller": true,
+      "Logitech G Pro RGB Mechanical Gaming Keyboard": true
+    }
+  }
+}
