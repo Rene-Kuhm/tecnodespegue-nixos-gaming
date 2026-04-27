@@ -1,78 +1,36 @@
 * {
-  bg0: #1e1e2e;
-  bg1: #181825;
-  bg2: #313244;
-  bg3: #45475a;
-  fg0: #cdd6f4;
-  fg1: #bac2de;
-  fg2: #a6adc8;
-  acc: #89b4fa;
-  mauve: #cba6f7;
-  red: #f38ba8;
-
-  background-color: transparent;
-  text-color: @fg0;
+    background: #1e1e2e;
+    foreground: #cdd6f4;
+    border: 1px solid #45475a;
+    cursor: pointer;
+    padding: 4px 8px;
+    margin: 2px;
+    roundness: 6;
+    font: "JetBrainsMono Nerd Font 12";
 }
 
-window {
-  width: 580px;
-  background-color: @bg0;
-  border: 2px solid @bg3;
-  border-radius: 16px;
-}
-
-mainbox {
-  background-color: transparent;
-  children: [inputbar, listview];
-  spacing: 8px;
-  padding: 16px;
-}
-
-inputbar {
-  background-color: @bg1;
-  border-radius: 10px;
-  padding: 10px 14px;
-  spacing: 8px;
-  children: [prompt, entry];
-}
-
-prompt {
-  text-color: @acc;
-  font: "JetBrainsMono Nerd Font Bold 13";
-}
-
-entry {
-  background-color: transparent;
-  text-color: @fg0;
-  placeholder-color: @fg2;
-  placeholder: "Buscar...";
+button {
+    background: #11111b;
+    border: 1px solid #45475a;
+    border-radius: 6px;
+    highlight: #313244;
+    hover:    #313244;
 }
 
 listview {
-  background-color: transparent;
-  lines: 8;
-  columns: 1;
-  spacing: 4px;
-}
-
-element {
-  padding: 8px 12px;
-  border-radius: 8px;
-  background-color: transparent;
-  text-color: @fg1;
-  spacing: 12px;
-}
-
-element selected {
-  background-color: @bg2;
-  text-color: @fg0;
-}
-
-element-icon { size: 24px; }
-element-text { vertical-align: 0.5; }
-
-scrollbar {
-  handle-color: @bg3;
-  handle-width: 4px;
-  background-color: transparent;
+    background: #11111b;
+    border: 1px solid #45475a;
+    columns: 1;
+    spacing: 2;
+    margin: 8;
+    padding: 8;
+    fixed-height: 0;
+    fixed-width: 0;
+    text-color: #cdd6f4;
+    separator-color: #313244;
+    scrollbar-color: #313244;
+    scrollbar-width: 10;
+    scrollbar-handle-width: 8;
+    scrollbar-handle-color: #585b70;
+    scrollbar-handle-roundness: 5;
 }
